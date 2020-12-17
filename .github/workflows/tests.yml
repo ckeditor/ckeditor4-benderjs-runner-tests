@@ -24,27 +24,23 @@ jobs:
           npm install -g benderjs-cli
           npm i
 
-      - name: Move to parent dir
-        run: |
-          cd ..
-          pwd
-
       - name: Checkout bender test runner
         # https://github.com/marketplace/actions/checkout
         uses: actions/checkout@v2
         with:
-          path: ckeditor4-benderjs-runner
+          path: ../ckeditor4-benderjs-runner
           repository: ckeditor/ckeditor4-benderjs-runner
           ref: master
 
       - name: Setup bender test runner
         run: |
-          cd ckeditor4-benderjs-runner
+          cd ../ckeditor4-benderjs-runner
           pwd
           npm i
 
       - name: Run tests
         run: |
+          cd ../ckeditor4-benderjs-runner
           pwd
           ls -la
           npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
