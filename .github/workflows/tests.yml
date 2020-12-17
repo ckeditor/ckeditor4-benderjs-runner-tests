@@ -1,0 +1,47 @@
+name: Run CKEditor 4 bender tests
+
+# https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#pull_request
+on: pull_request
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup node
+        # https://github.com/marketplace/actions/setup-node-js-environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10'
+
+      - name: Fetch changes
+        # https://github.com/marketplace/actions/checkout
+        uses: actions/checkout@v2
+
+      - name: Setup CKEditor 4 testing environment
+        run: |
+          pwd
+          npm install -g benderjs-cli
+          npm i
+          bender init
+
+      - name: Move to parent dir
+        run: |
+          cd ..
+
+      - name: Checkout bender test runner
+        # https://github.com/marketplace/actions/checkout
+        uses: actions/checkout@v2
+        with:
+          path: ckeditor4-benderjs-runner
+          repository: ckeditor/ckeditor4-benderjs-runner
+          ref: master
+
+      - name: Setup bender test runner
+        run: |
+          cd ckeditor4-benderjs-runner
+          npm i
+
+      - name: Run tests
+        run: |
+          npm run test '../../ckeditor4/bender-runner.config.json' 'path:/tests/plugins/image2'
