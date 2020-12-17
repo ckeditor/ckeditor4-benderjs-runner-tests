@@ -10,7 +10,7 @@
     "runner": "./src/runner.html"
   },
   "browsers": {
-    "linux": [ "chrome", "firefox" ],
+    "linux": [ "firefox" ],
     "windows": [ "edge", "ie11" ],
     "macos": [ "safari" ]
   }
