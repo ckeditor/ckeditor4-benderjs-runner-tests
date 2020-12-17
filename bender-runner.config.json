@@ -12,6 +12,6 @@
   "browsers": {
     "linux": [ "firefox" ],
     "windows": [ "edge", "ie11" ],
-    "macos": [ "chrome", "firefox", "safari" ]
+    "macos": [ "safari", "firefox" ]
   }
 }
