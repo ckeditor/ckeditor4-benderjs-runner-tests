@@ -45,4 +45,6 @@ jobs:
 
       - name: Run tests
         run: |
+          pwd
+          ls -la
           npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
