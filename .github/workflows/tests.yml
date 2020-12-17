@@ -4,11 +4,11 @@ name: Run CKEditor 4 bender tests
 on: pull_request
 
 jobs:
-  update:
-    runs-on: macos-latest
+  test:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Setup node
