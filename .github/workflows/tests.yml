@@ -6,6 +6,9 @@ on: pull_request
 jobs:
   update:
     runs-on: macos-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
 
     steps:
       - name: Setup node

@@ -10,8 +10,8 @@
     "runner": "./src/runner.html"
   },
   "browsers": {
-    "linux": [ "firefox" ],
+    "linux": [ "chrome", "firefox" ],
     "windows": [ "edge", "ie11" ],
-    "macos": [ "safari", "firefox" ]
+    "macos": [ "safari" ]
   }
 }
