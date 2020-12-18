@@ -40,7 +40,7 @@ jobs:
         - pwd
         - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
 
-  - name: Firefox (Linux)
+    - name: Firefox (Linux)
       os: linux
       dist: xenial
       services:
