@@ -58,7 +58,7 @@
 					screenY: 131
 				},
 				expected: {
-					width: 350,
+					width: 300,
 					height: 131
 				}
 			},
