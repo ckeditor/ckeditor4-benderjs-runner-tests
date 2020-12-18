@@ -1,8 +1,5 @@
-sudo: required
-
-os:
-  - linux
-  - osx
+os: linux
+dist: xenial
 
 branches:
   only:
@@ -18,14 +15,11 @@ node_js: 10
 
 jobs:
   include:
-
     - name: linux
       os: linux
       dist: xenial
-
       services:
         - xvfb
-
       addons:
         firefox: latest
         chrome: stable
@@ -33,27 +27,8 @@ jobs:
       script:
         echo "hello world from the node-10 and linux"
 
-   - name: osx
-     os: osx
+    - name: osx
+      os: osx
 
-     script:
+      script:
         echo "hello world from the node-9 and apple"
-
-# before_script:
-#   # Setup xvfb
-#   - 'export DISPLAY=:99.0'
-#   - 'sleep 3'
-#   # Setup CKEditor 4 testing environment
-#   - pwd
-#   - npm install benderjs-cli -g
-#   - npm i
-#   # Setup bender test runner
-#   - cd ..
-#   - pwd
-#   - git clone https://github.com/ckeditor/ckeditor4-benderjs-runner.git
-#   - cd ckeditor4-benderjs-runner
-#   - npm i
-
-# script:
-#   - pwd
-#   - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
