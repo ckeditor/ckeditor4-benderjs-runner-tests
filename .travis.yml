@@ -1,7 +1,5 @@
-sudo: required
+os: linux
 dist: xenial
-services:
-  - xvfb
 
 branches:
   only:
@@ -13,32 +11,93 @@ branches:
   - /^release\/\d+\.\d+\.x$/
 
 language: node_js
+node_js: 10
 
-node_js:
-  - 10
+jobs:
+  include:
+    - name: Chrome (Linux)
+      os: linux
+      dist: xenial
+      services:
+        - xvfb
+      addons:
+        chrome: stable
+      before_script:
+        # Setup xvfb
+        - 'export DISPLAY=:99.0'
+        - 'sleep 3'
+        # Setup CKEditor 4 testing environment
+        - pwd
+        - npm install benderjs-cli -g
+        - npm i
+        # Setup bender test runner
+        - cd ..
+        - pwd
+        - git clone https://github.com/ckeditor/ckeditor4-benderjs-runner.git
+        - cd ckeditor4-benderjs-runner
+        - npm i
+      script:
+        - pwd
+        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2' 'chrome'
 
-env:
-  - BUILD=0 BROWSER=Chrome
-  - BUILD=1 BROWSER=Chrome
-  - BUILD=0 BROWSER=Firefox MOZ_HEADLESS=1
-  - BUILD=1 BROWSER=Firefox MOZ_HEADLESS=1
+    - name: Firefox (Linux)
+      os: linux
+      dist: xenial
+      services:
+        - xvfb
+      addons:
+        firefox: latest
+      before_script:
+        # Setup xvfb
+        - 'export DISPLAY=:99.0'
+        - 'sleep 3'
+        # Setup CKEditor 4 testing environment
+        - pwd
+        - npm install benderjs-cli -g
+        - npm i
+        # Setup bender test runner
+        - cd ..
+        - pwd
+        - git clone https://github.com/ckeditor/ckeditor4-benderjs-runner.git
+        - cd ckeditor4-benderjs-runner
+        - npm i
+      script:
+        - pwd
+        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2' 'firefox'
 
-addons:
-  firefox: "latest"
-  chrome: stable
+    - name: Safari (OSX)
+      os: osx
+      before_script:
+        # Setup CKEditor 4 testing environment
+        - pwd
+        - npm install benderjs-cli -g
+        - npm i
+        # Setup bender test runner
+        - cd ..
+        - pwd
+        - git clone https://github.com/ckeditor/ckeditor4-benderjs-runner.git
+        - cd ckeditor4-benderjs-runner
+        - npm i
+      script:
+        - pwd
+        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2' 'safari'
 
-before_script:
-  # Prepare environment.
-  - 'npm install benderjs-cli -g'
-  - 'export DISPLAY=:99.0'
-  - 'sleep 3'
-
-  # The $TRAVIS_BRANCH points to target branch for PRs and for other branches it is the current branch name.
-  - 'BUILD_PATH=0'
-  - 'if [ "$BUILD" = "1" ] && ( [ "$TRAVIS_BRANCH" = "master" ] || [ "$TRAVIS_BRANCH" = "major" ] ); then
-        sh -e ./dev/travis/build.sh $TRAVIS_BRANCH && BUILD_PATH="$(sh -e ./dev/travis/buildpath.sh)";
-    fi'
-
-script:
-  - 'if [ "$BUILD" = "0" ]; then bender run -c bender.ci.js; fi'
-  - 'if [ "$BUILD" = "1" ] && [ "$BUILD_PATH" != "0" ]; then cd $BUILD_PATH && bender run -c bender.ci.js; fi'
+    - name: Edge (Windows)
+      os: windows
+      before_script:
+        # Setup xvfb
+        - 'export DISPLAY=:99.0'
+        - 'sleep 3'
+        # Setup CKEditor 4 testing environment
+        - pwd
+        - npm install benderjs-cli -g
+        - npm i
+        # Setup bender test runner
+        - cd ..
+        - pwd
+        - git clone https://github.com/ckeditor/ckeditor4-benderjs-runner.git
+        - cd ckeditor4-benderjs-runner
+        - npm i
+      script:
+        - pwd
+        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
