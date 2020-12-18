@@ -38,7 +38,7 @@ jobs:
         - npm i
       script:
         - pwd
-        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
+        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2' 'chrome'
 
     - name: Firefox (Linux)
       os: linux
@@ -63,11 +63,14 @@ jobs:
         - npm i
       script:
         - pwd
-        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
+        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2' 'firefox'
 
     - name: Safari (OSX)
       os: osx
       before_script:
+        # Setup xvfb
+        - 'export DISPLAY=:99.0'
+        - 'sleep 3'
         # Setup CKEditor 4 testing environment
         - pwd
         - npm install benderjs-cli -g
