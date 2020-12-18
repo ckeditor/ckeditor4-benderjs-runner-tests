@@ -15,20 +15,69 @@ node_js: 10
 
 jobs:
   include:
-    - name: linux
+    - name: Chrome (Linux)
+      os: linux
+      dist: xenial
+      services:
+        - xvfb
+      addons:
+        chrome: stable
+      before_script:
+        # Setup xvfb
+        - 'export DISPLAY=:99.0'
+        - 'sleep 3'
+        # Setup CKEditor 4 testing environment
+        - pwd
+        - npm install benderjs-cli -g
+        - npm i
+        # Setup bender test runner
+        - cd ..
+        - pwd
+        - git clone https://github.com/ckeditor/ckeditor4-benderjs-runner.git
+        - cd ckeditor4-benderjs-runner
+        - npm i
+      script:
+        - pwd
+        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
+
+  - name: Firefox (Linux)
       os: linux
       dist: xenial
       services:
         - xvfb
       addons:
         firefox: latest
-        chrome: stable
-
+      before_script:
+        # Setup xvfb
+        - 'export DISPLAY=:99.0'
+        - 'sleep 3'
+        # Setup CKEditor 4 testing environment
+        - pwd
+        - npm install benderjs-cli -g
+        - npm i
+        # Setup bender test runner
+        - cd ..
+        - pwd
+        - git clone https://github.com/ckeditor/ckeditor4-benderjs-runner.git
+        - cd ckeditor4-benderjs-runner
+        - npm i
       script:
-        echo "hello world from the node-10 and linux"
+        - pwd
+        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
 
-    - name: osx
+    - name: Safari (OSX)
       os: osx
-
+      before_script:
+        # Setup CKEditor 4 testing environment
+        - pwd
+        - npm install benderjs-cli -g
+        - npm i
+        # Setup bender test runner
+        - cd ..
+        - pwd
+        - git clone https://github.com/ckeditor/ckeditor4-benderjs-runner.git
+        - cd ckeditor4-benderjs-runner
+        - npm i
       script:
-        echo "hello world from the node-9 and apple"
+        - pwd
+        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
