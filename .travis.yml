@@ -83,4 +83,27 @@ jobs:
         - npm i
       script:
         - pwd
-        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
+        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2' 'safari'
+
+    - name: Edge (OSX)
+      os: osx
+      before_script:
+        # Install Edge browser
+        - curl 'https://officecdn-microsoft-com.akamaized.net/pr/C1297A47-86C4-4C1F-97FA-950631F94777/MacAutoupdate/MicrosoftEdge-87.0.664.66.pkg?platform=Mac&Consent=0&channel=Stable' --output 'ms-edge.pkg'
+        - sudo installer -pkg "ms-edge.pkg" -target /
+        # Setup xvfb
+        - 'export DISPLAY=:99.0'
+        - 'sleep 3'
+        # Setup CKEditor 4 testing environment
+        - pwd
+        - npm install benderjs-cli -g
+        - npm i
+        # Setup bender test runner
+        - cd ..
+        - pwd
+        - git clone https://github.com/ckeditor/ckeditor4-benderjs-runner.git
+        - cd ckeditor4-benderjs-runner
+        - npm i
+      script:
+        - pwd
+        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2' 'edge'
