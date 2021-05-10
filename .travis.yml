@@ -37,6 +37,10 @@ jobs:
         - cd ckeditor4-benderjs-runner
         - git checkout t/1
         - npm i
+        # Define target branches/commits
+        - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; TARGET_BRANCH="$TRAVIS_BRANCH"; CURRENT_BRANCH="$TRAVIS_PULL_REQUEST_BRANCH"; fi'
+        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; TARGET_BRANCH="HEAD^"; CURRENT_BRANCH="HEAD"; fi'
       script:
         - pwd
-        - npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'chrome'
+        - echo "Running tests based on diff between $TARGET_BRANCH and $CURRENT_BRANCH"
+        - npm run test "../../ckeditor4-benderjs-runner-tests/bender-runner.config.json" "$TARGET_BRANCH" "$CURRENT_BRANCH" "chrome"
