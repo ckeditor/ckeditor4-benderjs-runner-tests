@@ -38,8 +38,11 @@ jobs:
         - git checkout t/1
         - npm i
         # Define target branches/commits
-        - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; TARGET_BRANCH="$TRAVIS_BRANCH"; CURRENT_BRANCH="$TRAVIS_PULL_REQUEST_BRANCH"; fi'
-        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; TARGET_BRANCH="HEAD^"; CURRENT_BRANCH="HEAD"; fi'
+        - TARGET_BRANCH=$TRAVIS_BRANCH
+        - CURRENT_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
+        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
+               sh -e TARGET_BRANCH="HEAD^" && CURRENT_BRANCH="HEAD";
+          fi'
       script:
         - pwd
         - echo "Running tests based on diff between $TARGET_BRANCH and $CURRENT_BRANCH"
