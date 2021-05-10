@@ -44,8 +44,6 @@ jobs:
           npm i
 
       - name: Run tests
-        run: |
-          pwd
-          cd ../ckeditor4-benderjs-runner
-          pwd
-          npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: cd ../ckeditor4-benderjs-runner && npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
