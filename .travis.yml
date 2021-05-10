@@ -46,4 +46,4 @@ jobs:
       script:
         - pwd
         - echo "Running tests based on diff between $TARGET_BRANCH and $CURRENT_BRANCH"
-        - npm run test "../../ckeditor4-benderjs-runner-tests/bender-runner.config.json" "$TARGET_BRANCH" "$CURRENT_BRANCH" "chrome"
+        - npm run start "../../ckeditor4-benderjs-runner-tests/bender-runner.config.json" "$TARGET_BRANCH" "$CURRENT_BRANCH" "chrome"
