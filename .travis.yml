@@ -38,10 +38,10 @@ jobs:
         - git checkout t/1
         - npm i
         # Define target branches/commits
-        - TARGET_BRANCH=$TRAVIS_BRANCH
-        - CURRENT_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH
+        - TARGET_BRANCH="origin/$TRAVIS_BRANCH"
+        - CURRENT_BRANCH="origin/$TRAVIS_PULL_REQUEST_BRANCH"
         - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
-               sh -e TARGET_BRANCH="HEAD^" && CURRENT_BRANCH="HEAD";
+               sh -e TARGET_BRANCH="origin/HEAD^" && CURRENT_BRANCH="origin/HEAD";
           fi'
       script:
         - pwd
