@@ -9,6 +9,10 @@
     "ckeditor4": "../ckeditor4-benderjs-runner-tests/",
     "runner": "./src/runner.html"
   },
+  "repository": {
+    "targetBranch": "master",
+    "currentBranch": ""
+  },
   "browsers": {
     "linux": [ "chrome", "firefox" ],
     "windows": [ "edge", "ie11" ],
