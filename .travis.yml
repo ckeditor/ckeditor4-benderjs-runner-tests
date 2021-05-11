@@ -13,6 +13,9 @@ branches:
 language: node_js
 node_js: 10
 
+git:
+  depth: false
+
 jobs:
   include:
     - name: Chrome (Linux)
@@ -26,6 +29,12 @@ jobs:
         # Setup xvfb
         - 'export DISPLAY=:99.0'
         - 'sleep 3'
+        # Define target branches
+        - TARGET_BRANCH="origin/$TRAVIS_BRANCH"
+        - CURRENT_BRANCH="origin/$TRAVIS_PULL_REQUEST_BRANCH"
+        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
+               sh -e TARGET_BRANCH="origin/HEAD^" && CURRENT_BRANCH="origin/HEAD";
+          fi'
         # Setup CKEditor 4 testing environment
         - pwd
         - npm install benderjs-cli -g
@@ -37,12 +46,7 @@ jobs:
         - cd ckeditor4-benderjs-runner
         - git checkout t/1
         - npm i
-        # Define target branches/commits
-        - TARGET_BRANCH="origin/$TRAVIS_BRANCH"
-        - CURRENT_BRANCH="origin/$TRAVIS_PULL_REQUEST_BRANCH"
-        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
-               sh -e TARGET_BRANCH="origin/HEAD^" && CURRENT_BRANCH="origin/HEAD";
-          fi'
+
       script:
         - pwd
         - echo "Running tests based on diff between $TARGET_BRANCH and $CURRENT_BRANCH"
