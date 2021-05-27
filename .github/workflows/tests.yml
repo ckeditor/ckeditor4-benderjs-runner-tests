@@ -17,6 +17,13 @@ jobs:
         with:
           node-version: '10'
 
+      # https://github.com/juliangruber/browser-run/issues/147#issuecomment-754553635
+      - name: Setup xvfb (Linux)
+        if: runner.os == 'Linux'
+        run: |
+            sudo apt-get install -y xvfb libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xinput0 libxcb-xfixes0
+            sudo /usr/bin/Xvfb :0 -screen 0 1280x1024x24 &
+
       - name: Fetch changes
         # https://github.com/marketplace/actions/checkout
         uses: actions/checkout@v2
