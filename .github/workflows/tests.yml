@@ -4,8 +4,11 @@ name: Run CKEditor 4 bender tests
 on: pull_request
 
 jobs:
-  update:
-    runs-on: ubuntu-latest
+  test:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Setup node
@@ -13,6 +16,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '10'
+
+      # https://github.com/juliangruber/browser-run/issues/147#issuecomment-754553635
+      - name: Setup xvfb (Linux)
+        if: runner.os == 'Linux'
+        run: |
+            #sudo apt-get install -y xvfb libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xinput0 libxcb-xfixes0
+            #sudo /usr/bin/Xvfb :0 -screen 0 1280x1024x24 &
+            export DISPLAY=:99
+            sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
 
       - name: Fetch changes
         # https://github.com/marketplace/actions/checkout
@@ -24,11 +36,6 @@ jobs:
           npm install -g benderjs-cli
           npm i
 
-      - name: Move to parent dir
-        run: |
-          cd ..
-          pwd
-
       - name: Checkout bender test runner
         # https://github.com/marketplace/actions/checkout
         uses: actions/checkout@v2
@@ -39,10 +46,15 @@ jobs:
 
       - name: Setup bender test runner
         run: |
-          cd ckeditor4-benderjs-runner
+          pwd
+          mv ckeditor4-benderjs-runner ../ckeditor4-benderjs-runner
+          cd ../ckeditor4-benderjs-runner
           pwd
           npm i
 
       - name: Run tests
         run: |
+          pwd
+          cd ../ckeditor4-benderjs-runner
+          pwd
           npm run test '../../ckeditor4-benderjs-runner-tests/bender-runner.config.json' 'path:/tests/plugins/image2'
