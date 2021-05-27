@@ -19,8 +19,6 @@ git:
 jobs:
   include:
     - name: Chrome (Linux)
-      os: linux
-      dist: xenial
       services:
         - xvfb
       addons:
@@ -52,8 +50,6 @@ jobs:
         - npm run start "../../ckeditor4-benderjs-runner-tests/bender-runner.config.json" "$TARGET_BRANCH" "$CURRENT_BRANCH" "chrome"
 
     - name: Firefox (Linux)
-      os: linux
-      dist: xenial
       services:
         - xvfb
       addons:
