@@ -37,7 +37,7 @@
 
 			assertWidgetDialog( this.editorBot, 'image', widgetsHtml, 'x', {
 				src: '_assets/foo.png',
-				alt: 'broken1',
+				alt: 'xalt',
 				width: '100',
 				height: '',
 				align: 'none',
@@ -115,7 +115,7 @@
 
 			assertWidgetDialog( editorBot, 'image', '', null, {
 				src: '',
-				alt: 'broken2',
+				alt: '',
 				width: '',
 				height: '',
 				align: 'none',

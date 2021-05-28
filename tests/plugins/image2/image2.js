@@ -33,7 +33,7 @@
 			align: 'left',
 			src: '_assets/bar.png',
 			alt: 'bar',
-			width: '2001',
+			width: '200',
 			height: '250',
 			hasCaption: false
 		} ),

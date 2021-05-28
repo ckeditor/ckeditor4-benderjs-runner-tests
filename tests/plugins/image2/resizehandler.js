@@ -58,7 +58,7 @@
 					screenY: 131
 				},
 				expected: {
-					width: CKEDITOR.env.webkit ? 350 : 300,
+					width: 350,
 					height: 131
 				}
 			},
