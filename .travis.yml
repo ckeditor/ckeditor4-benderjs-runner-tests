@@ -16,6 +16,9 @@ node_js: 10
 git:
   depth: false
 
+env:
+  - FULL_RUN=fullRun
+
 jobs:
   include:
     - name: Chrome (Linux)
@@ -47,7 +50,7 @@ jobs:
       script:
         - pwd
         - echo "Running tests based on diff between $TARGET_BRANCH and $CURRENT_BRANCH"
-        - npm run start "../../ckeditor4-benderjs-runner-tests/bender-runner.config.json" "$TARGET_BRANCH" "$CURRENT_BRANCH" "chrome"
+        - npm run start "../../ckeditor4-benderjs-runner-tests/bender-runner.config.json" "$TARGET_BRANCH" "$CURRENT_BRANCH" "chrome" $FULL_RUN
 
     - name: Firefox (Linux)
       services:
@@ -78,4 +81,4 @@ jobs:
       script:
         - pwd
         - echo "Running tests based on diff between $TARGET_BRANCH and $CURRENT_BRANCH"
-        - npm run start "../../ckeditor4-benderjs-runner-tests/bender-runner.config.json" "$TARGET_BRANCH" "$CURRENT_BRANCH" "firefox"
+        - npm run start "../../ckeditor4-benderjs-runner-tests/bender-runner.config.json" "$TARGET_BRANCH" "$CURRENT_BRANCH" "firefox" $FULL_RUN
