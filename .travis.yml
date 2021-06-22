@@ -90,7 +90,7 @@ jobs:
         - echo "Running tests based on diff between $TARGET_BRANCH and $CURRENT_BRANCH"
         - npm run start "../../ckeditor4-benderjs-runner-tests/bender-runner.config.json" "$TARGET_BRANCH" "$CURRENT_BRANCH" "firefox" $FULL_RUN
 
-  - name: Safari (OSX)
+    - name: Safari (OSX)
       os: osx
       before_script:
         # Define target branches
