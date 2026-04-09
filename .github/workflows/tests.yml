@@ -10,13 +10,13 @@ jobs:
     steps:
       - name: Setup node
         # https://github.com/marketplace/actions/setup-node-js-environment
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1
         with:
           node-version: '10'
 
       - name: Fetch changes
         # https://github.com/marketplace/actions/checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 #v2
 
       - name: Setup CKEditor 4 testing environment
         run: |
@@ -31,7 +31,7 @@ jobs:
 
       - name: Checkout bender test runner
         # https://github.com/marketplace/actions/checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 #v2
         with:
           path: ckeditor4-benderjs-runner
           repository: ckeditor/ckeditor4-benderjs-runner
